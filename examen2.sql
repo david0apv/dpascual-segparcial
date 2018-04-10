@@ -91,6 +91,41 @@ ALTER SEQUENCE autores_id_autor_seq OWNED BY autores.id_autor;
 
 
 --
+-- Name: libros; Type: TABLE; Schema: public; Owner: exa2_user
+--
+
+CREATE TABLE libros (
+    id_libro integer NOT NULL,
+    titulo character varying(32) NOT NULL,
+    id_autor integer,
+    "año" integer NOT NULL
+);
+
+
+ALTER TABLE libros OWNER TO exa2_user;
+
+--
+-- Name: libros_id_libro_seq; Type: SEQUENCE; Schema: public; Owner: exa2_user
+--
+
+CREATE SEQUENCE libros_id_libro_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE libros_id_libro_seq OWNER TO exa2_user;
+
+--
+-- Name: libros_id_libro_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: exa2_user
+--
+
+ALTER SEQUENCE libros_id_libro_seq OWNED BY libros.id_libro;
+
+
+--
 -- Name: usuarios; Type: TABLE; Schema: public; Owner: exa2_user
 --
 
@@ -135,6 +170,13 @@ ALTER TABLE ONLY autores ALTER COLUMN id_autor SET DEFAULT nextval('autores_id_a
 
 
 --
+-- Name: libros id_libro; Type: DEFAULT; Schema: public; Owner: exa2_user
+--
+
+ALTER TABLE ONLY libros ALTER COLUMN id_libro SET DEFAULT nextval('libros_id_libro_seq'::regclass);
+
+
+--
 -- Name: usuarios id_usuario; Type: DEFAULT; Schema: public; Owner: exa2_user
 --
 
@@ -157,6 +199,21 @@ SELECT pg_catalog.setval('autores_id_autor_seq', 1, false);
 
 
 --
+-- Data for Name: libros; Type: TABLE DATA; Schema: public; Owner: exa2_user
+--
+
+COPY libros (id_libro, titulo, id_autor, "año") FROM stdin;
+\.
+
+
+--
+-- Name: libros_id_libro_seq; Type: SEQUENCE SET; Schema: public; Owner: exa2_user
+--
+
+SELECT pg_catalog.setval('libros_id_libro_seq', 1, false);
+
+
+--
 -- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: exa2_user
 --
 
@@ -169,6 +226,22 @@ COPY usuarios (id_usuario, nombre, apaterno, amaterno, usuario, "contraseña") F
 --
 
 SELECT pg_catalog.setval('usuarios_id_usuario_seq', 1, false);
+
+
+--
+-- Name: autores autores_id_autor_key; Type: CONSTRAINT; Schema: public; Owner: exa2_user
+--
+
+ALTER TABLE ONLY autores
+    ADD CONSTRAINT autores_id_autor_key UNIQUE (id_autor);
+
+
+--
+-- Name: libros libros_id_autor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: exa2_user
+--
+
+ALTER TABLE ONLY libros
+    ADD CONSTRAINT libros_id_autor_fkey FOREIGN KEY (id_autor) REFERENCES autores(id_autor);
 
 
 --
