@@ -3,23 +3,22 @@
 <head>
 <meta charset='UTF-8'>
 <link rel="stylesheet" type="text/css" href="css/style.css">
-<title>Registro de usuarios</title>
+<title>Registro de autor</title>
 </head>
 <body>
 <?php
 session_start();
 
-if ($_SESSION['pag']<1){
+if ($_SESSION['pag']==0){
 	header("Location: login.php");
 }
 
 $_SESSION['pag']=0;
 
-$_SESSION['alta']=1;
-
+$_SESSION['alta']=2;
 ?>
 <div class="encabezado">
-<h2>Registro de usuarios</h2>
+<h2>Registro de autor</h2>
 </div>
 
 <div class="contenido">
@@ -28,11 +27,7 @@ $_SESSION['alta']=1;
 Nombre: <input type="text" name="nombre" required><br><br>
 Apellido paterno: <input type="text" name="apaterno" required><br><br>
 Apellido materno: <input type="text" name="amaterno"><br><br>
-</div>
-<div class="contenido">
-<p>Introduzca sus datos para nuevo usuario</p>
-Nombre de usuario: <input type="text" name="user" required><br><br>
-Contraseña: <input type="password" name="pass" required><br><br>
+Nacionalidad: <input type="text" name="nacionalidad" required><br><br>
 <input type="submit" value="Enviar">
 </form>
 </div>
